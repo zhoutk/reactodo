@@ -3,17 +3,16 @@
  */
 
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
+const SquareDiv = styled.div`
+    height: 150px;
+    background-color: ${props => props.color};
+    `;
 class Square extends Component {
     render() {
-        var squareStyle = {
-            height: 150,
-            backgroundColor: this.props.color
-        };
         return (
-            <div style={squareStyle}>
-
-            </div>
+            <SquareDiv {...this.props}></SquareDiv>
         );
     }
 }

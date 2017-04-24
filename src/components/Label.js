@@ -3,17 +3,19 @@
  */
 
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+const P = styled.p`
+        font-family: sans-serif;
+        font-weight: bold;
+        padding: 13px;
+        margin: 0;
+    `;
 
 class Label extends Component {
     render() {
-        var labelStyle = {
-            fontFamily: "sans-serif",
-            fontWeight: "bold",
-            padding: 13,
-            margin: 0
-        };
         return (
-            <p style={labelStyle}>{this.props.color}</p>
+            <P>{this.props.color}</P>
         );
     }
 }

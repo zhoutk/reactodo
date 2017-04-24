@@ -3,24 +3,25 @@
  */
 
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import Square from './Square';
 import Label from './Label';
 
+const CardDiv = styled.div`
+    height: 200px;
+    width: 150px;
+    padding: 0,
+    background-color: #FFF;
+    -webkit-filter: drop-shadow(0px 0px 5px #666);              //这行可以删除
+    filter: drop-shadow(0px 0px 5px #666);
+`;
 class Card extends Component {
     render() {
-        var cardStyle = {
-            height: 200,
-            width: 150,
-            padding: 0,
-            backgroundColor: "#FFF",
-            WebkitFilter: "drop-shadow(0px 0px 5px #666)",
-            filter: "drop-shadow(0px 0px 5px #666)"
-        };
         return (
-            <div style={cardStyle}>
+            <CardDiv>
                 <Square color={this.props.color}/>
                 <Label color={this.props.color}/>
-            </div>
+            </CardDiv>
         );
     }
 }
