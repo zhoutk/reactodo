@@ -3,22 +3,21 @@
  */
 
 import React, { Component } from 'react';
-// import styled from 'styled-components';
-import './Home.css';
+import {ContentDivH2, ContentDivLi} from '../styled/Content';
 
 class Stuff extends Component {
     render() {
         return (
             <div>
-                <h2>STUFF</h2>
+                <ContentDivH2>STUFF</ContentDivH2>
                 <p>Mauris sem velit, vehicula eget sodales vitae,
                     rhoncus eget sapien:</p>
                 <ol>
-                    <li>Nulla pulvinar diam</li>
-                    <li>Facilisis bibendum</li>
-                    <li>Vestibulum vulputate</li>
-                    <li>Eget erat</li>
-                    <li>Id porttitor</li>
+                    <ContentDivLi>Nulla pulvinar diam</ContentDivLi>
+                    <ContentDivLi>Facilisis bibendum</ContentDivLi>
+                    <ContentDivLi>Vestibulum vulputate</ContentDivLi>
+                    <ContentDivLi>Eget erat</ContentDivLi>
+                    <ContentDivLi>Id porttitor</ContentDivLi>
                 </ol>
             </div>
         );

@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-// import logo from '../logo.svg';
-import {NavLink} from 'react-router-dom';
-import './App.css';
+import {HeaderUl, HeaderLi, HeaderA} from '../styled/Header';
+import {ContentDiv} from '../styled/Content';
 
 class App extends Component {
   render() {
     return (
         <div>
             <h1>Simple SPA</h1>
-            <ul className="header">
-                <li><NavLink exact to="/" activeClassName="active">Home</NavLink></li>
-                <li><NavLink to="/stuff" activeClassName="active">Stuff</NavLink></li>
-                <li><NavLink to="/contact" activeClassName="active">Contact</NavLink></li>
-            </ul>
-            <div className="content">
+            <HeaderUl className="header">
+                <HeaderLi><HeaderA exact to="/" activeClassName="active">Home</HeaderA></HeaderLi>
+                <HeaderLi><HeaderA to="/stuff" activeClassName="active">Stuff</HeaderA></HeaderLi>
+                <HeaderLi><HeaderA to="/contact" activeClassName="active">Contact</HeaderA></HeaderLi>
+            </HeaderUl>
+            <ContentDiv>
                 {this.props.children}
-            </div>
+            </ContentDiv>
         </div>
     );
   }

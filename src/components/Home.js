@@ -3,14 +3,13 @@
  */
 
 import React, { Component } from 'react';
-// import styled from 'styled-components';
-import './Home.css';
+import {ContentDivH2} from '../styled/Content';
 
 class Home extends Component {
     render() {
         return (
             <div>
-                <h2>HELLO</h2>
+                <ContentDivH2>HELLO</ContentDivH2>
                 <p>Cras facilisis urna ornare ex volutpat, et
                     convallis erat elementum. Ut aliquam, ipsum vitae
                     gravida suscipit, metus dui bibendum est, eget rhoncus nibh
