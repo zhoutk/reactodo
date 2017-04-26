@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
-import {HeaderUl, HeaderLi, HeaderA} from '../styled/Header';
-import {ContentDiv} from '../styled/Content';
+import InputAndButton from '../components/InputAndButton';
+import LiList from '../components/LiList';
 
 class App extends Component {
+    constructor(props)	{
+        super(props);
+        this.state={items:[]};
+    }
+    componentDidMount(){
+        this.setState({items:[{key:'123',text:'text 1'},{key:'231',text:'text 2'}]})
+    };
     render() {
-        const activeStyle = {backgroundColor: "#0099FF"};
         return (
             <div>
-                <h1>Simple SPA</h1>
-                <HeaderUl className="header">
-                    <HeaderLi><HeaderA exact to="/" activeStyle={activeStyle}>Home</HeaderA></HeaderLi>
-                    <HeaderLi><HeaderA to="/stuff" activeStyle={activeStyle}>Stuff</HeaderA></HeaderLi>
-                    <HeaderLi><HeaderA to="/contact" activeStyle={activeStyle}>Contact</HeaderA></HeaderLi>
-                </HeaderUl>
-                <ContentDiv>
-                    {this.props.children}
-                </ContentDiv>
+                <InputAndButton/>
+                <LiList items={this.state.items}/>
             </div>
         );
-    }
+    };
 }
 
 export default App;
