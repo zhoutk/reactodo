@@ -20,6 +20,7 @@ class App extends Component {
             if(this.state.inputValue.length > 0) {
                 this.state.items.push({key: new Date().getTime(), text: this.state.inputValue});
                 e.target.value = '';
+                this.InputComponent.focus();
                 this.setState({
                     items: this.state.items,
                     inputValue:''
@@ -27,10 +28,13 @@ class App extends Component {
             }
         }
     }
+    componentDidMount(){
+        this.InputComponent.focus();
+    }
     render() {
         return (
             <div>
-                <InputAndButton onChange={this.onChange.bind(this)} addItem={this.addItem.bind(this)} inputValue={this.state.inputValue}/>
+                <InputAndButton ref={comp => { this.InputComponent = comp; }} onChange={this.onChange.bind(this)} addItem={this.addItem.bind(this)} inputValue={this.state.inputValue}/>
                 <LiList items={this.state.items}/>
             </div>
         );
