@@ -2,7 +2,7 @@
  * Created by zhoutk on 17-4-18.
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 import {TodoUl} from '../styled/Todo';
 import Li from './Li';
 
