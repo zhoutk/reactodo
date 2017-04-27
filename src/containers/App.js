@@ -20,12 +20,12 @@ class App extends Component {
             if(this.state.inputValue.length > 0) {
                 this.state.items.push({key: new Date().getTime(), text: this.state.inputValue});
                 e.target.value = '';
-                this.InputComponent.focus();
                 this.setState({
                     items: this.state.items,
                     inputValue:''
                 })
             }
+            this.InputComponent.focus();
         }
     }
     componentDidMount(){
