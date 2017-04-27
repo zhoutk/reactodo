@@ -6,9 +6,6 @@ import React, { Component } from 'react';
 import {TodoButton, TodoInput} from '../styled/Todo';
 
 class InputAndButton extends Component {
-    constructor(props)	{
-        super(props);
-    }
     focus = () => {
         this.el.focus();
     };
