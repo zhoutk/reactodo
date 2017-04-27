@@ -3,38 +3,27 @@ import InputAndButton from '../components/InputAndButton';
 import LiList from '../components/LiList';
 
 class App extends Component {
-    constructor(props)	{
+    constructor(props){
         super(props);
         this.state={
-            items:[],
-            inputValue:''
+            items:[]
         };
     }
-    onChange(e){
-        this.setState({
-            inputValue:e.target.value
-        })
-    }
-    addItem(e){
-        if(e.keyCode === 13 || e.type === 'click'){
-            if(this.state.inputValue.length > 0) {
-                this.state.items.push({key: new Date().getTime(), text: this.state.inputValue});
-                e.target.value = '';
-                this.setState({
-                    items: this.state.items,
-                    inputValue:''
-                })
-            }
-            this.InputComponent.focus();
+    handleSave(text){
+        if(text.length !== 0){
+            this.state.items.push({key: new Date().getTime(), text});
+            this.setState({
+                items: this.state.items,
+            })
         }
-    }
-    componentDidMount(){
+    };
+    componentDidMount (){
         this.InputComponent.focus();
-    }
+    };
     render() {
         return (
             <div>
-                <InputAndButton ref={comp => { this.InputComponent = comp; }} onChange={this.onChange.bind(this)} addItem={this.addItem.bind(this)} inputValue={this.state.inputValue}/>
+                <InputAndButton ref={comp => { this.InputComponent = comp; }} onSave={this.handleSave.bind(this)}/>
                 <LiList items={this.state.items}/>
             </div>
         );
