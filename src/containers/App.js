@@ -6,22 +6,28 @@ import LiList from '../components/LiList';
 import * as TodoActions from '../actions';
 
 class App extends Component {
-    static propTypes = {
-        todos: PropTypes.array.isRequired,
-        actions: PropTypes.object.isRequired
-    };
+    // static propTypes = {
+    //     todos: PropTypes.array.isRequired,
+    //     actions: PropTypes.object.isRequired
+    // };
     componentDidMount (){
         this.InputComponent.focus();
     };
     render() {
+        var {todos,actions} = this.props;
         return (
             <div>
-                <InputAndButton ref={comp => { this.InputComponent = comp; }} onSave={this.props.actions.addTodo}/>
-                <LiList items={this.props.todos}/>
+                <InputAndButton ref={comp => { this.InputComponent = comp; }} onSave={actions.addTodo}/>
+                <LiList items={todos}/>
             </div>
         );
     };
 }
+
+App.propTypes = {
+    todos: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => ({
     todos: state.todos.items
