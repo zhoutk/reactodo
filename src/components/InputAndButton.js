@@ -15,9 +15,6 @@ class InputAndButton extends Component {
                 this.props.onSave(e.target.value.trim() || this.el.value.trim());
                 e.target.value = '';
                 this.el.value = '';
-                this.setState({
-                    inputValue:''
-                })
             }
             this.focus();
         }

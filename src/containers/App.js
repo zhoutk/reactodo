@@ -1,33 +1,31 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 import InputAndButton from '../components/InputAndButton';
 import LiList from '../components/LiList';
+import * as TodoActions from '../actions';
 
-class App extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            items:[]
-        };
-    }
-    handleSave(text){
-        if(text.length !== 0){
-            this.state.items.push({key: new Date().getTime(), text});
-            this.setState({
-                items: this.state.items,
-            })
-        }
-    };
-    componentDidMount (){
-        this.InputComponent.focus();
-    };
-    render() {
-        return (
-            <div>
-                <InputAndButton ref={comp => { this.InputComponent = comp; }} onSave={this.handleSave.bind(this)}/>
-                <LiList items={this.state.items}/>
-            </div>
-        );
-    };
+const App = ({todos, actions}) => (
+    <div>
+        <InputAndButton onSave={actions.addTodo}/>
+        <LiList items={todos}/>
+    </div>
+);
+
+App.propTypes = {
+    todos: PropTypes.array.isRequired,
+    actions: PropTypes.object.isRequired
 }
 
-export default App;
+const mapStateToProps = state => ({
+    todos: state.todos.items
+})
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(TodoActions, dispatch)
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App)
