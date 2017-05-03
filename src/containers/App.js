@@ -25,12 +25,12 @@ class App extends Component {
 }
 
 App.propTypes = {
-    todos: PropTypes.array.isRequired,
+    todos: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-    todos: state.todos.items
+    todos: state.get('todos').get('items')
 })
 
 const mapDispatchToProps = dispatch => ({
