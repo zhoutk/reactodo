@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.16.1",
     "immutable": "^3.8.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -10,6 +11,7 @@
     "react-router": "^3.0.5",
     "react-router-redux": "^4.0.8",
     "redux": "^3.6.0",
+    "redux-actions": "^2.0.3",
     "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.2.0",
     "styled-components": "^1.4.5"

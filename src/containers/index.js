@@ -2,7 +2,7 @@
  * Created by zhoutk on 17-5-18.
  */
 import React, { Component } from 'react';
-import {HeaderUl, HeaderLi, HeaderA, HeaderIndexLink} from '../styled/Header';
+import {HeaderUl, HeaderLi, HeaderA} from '../styled/Header';
 import {ContentDiv} from '../styled/Content';
 
 class App extends Component {

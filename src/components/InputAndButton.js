@@ -12,7 +12,7 @@ class InputAndButton extends Component {
     addItem = e => {
         if(e.which === 13 || e.type === 'click'){
             if(e.target.value.trim().length > 0 || this.el.value.trim().length > 0) {
-                this.props.onSave(e.target.value.trim() || this.el.value.trim());
+                this.props.onSave({text: e.target.value.trim() || this.el.value.trim()});
                 e.target.value = '';
                 this.el.value = '';
             }

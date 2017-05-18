@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import {ContentDivH2} from '../styled/Content';
+// import {ContentDivH2} from '../styled/Content';
 import App from '../containers/App'
 
 class Home extends Component {
