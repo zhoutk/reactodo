@@ -3,11 +3,11 @@ import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import { logger } from '../middleware'
 import rootReducer from '../reducers'
+import { hashHistory } from 'react-router';
+import { syncHistoryWithStore } from 'react-router-redux'
 
-const nextReducer = require('../reducers')
-
-export default function configureStore(initialState) {
-    console.log('initialState', initialState)
+// const nextReducer = require('../reducers')
+const store = (function configureStore(initialState) {
     const create = window.devToolsExtension
         ? window.devToolsExtension()(createStore)
         : createStore
@@ -17,13 +17,31 @@ export default function configureStore(initialState) {
         logger,
     )(create)
 
-    const store = createStoreWithMiddleware(rootReducer, initialState)
+    const localStore = createStoreWithMiddleware(rootReducer, initialState)
 
-    if (module.hot) {
-        module.hot.accept('../reducers', () => {
-            store.replaceReducer(nextReducer)
-        })
-    }
+    // if (module.hot) {
+    //     module.hot.accept('../reducers', () => {
+    //         store.replaceReducer(nextReducer)
+    //     })
+    // }
 
-    return store
-}
+    return localStore
+})()
+
+const createSelectLocationState = () => {
+    let prevRoutingState, prevRoutingStateJS;
+    return (state) => {
+        const routingState = state.get('routing'); // or state.routing
+        if (typeof prevRoutingState === 'undefined' || prevRoutingState !== routingState) {
+            prevRoutingState = routingState;
+            prevRoutingStateJS = routingState.toJS();
+        }
+        return prevRoutingStateJS;
+    };
+};
+
+const history = syncHistoryWithStore(hashHistory, store, {
+    selectLocationState: createSelectLocationState()
+});
+
+export { store, history }

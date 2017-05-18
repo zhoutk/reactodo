@@ -1,10 +1,10 @@
 let configureStore;
-configureStore = require('./configureStore.dev').default;
+configureStore = require('./configureStore.dev');
 
 // if (__DEVELOPMENT__) {
 //   configureStore = require('./configureStore.dev').default;
 // } else {
 //   configureStore = require('./configureStore.prod').default;
 // }
-
-export default configureStore;
+var {store,history} = configureStore;
+export {store,history};

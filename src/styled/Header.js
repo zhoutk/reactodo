@@ -2,7 +2,7 @@
  * Created by zhoutk on 17-4-25.
  */
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router';
 
 const HeaderUl = styled.ul`
     background-color: #111;
@@ -15,7 +15,7 @@ const HeaderLi = styled.li`
     margin: 0;
 `;
 
-const HeaderA = styled(NavLink)`
+const HeaderA = styled(Link)`
     color: #FFF;
     font-weight: bold;
     text-decoration: none;
