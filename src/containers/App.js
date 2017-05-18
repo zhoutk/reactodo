@@ -12,7 +12,6 @@ class App extends Component {
     // };
     componentDidMount (){
         this.InputComponent.focus();
-        this.props.actions.queryTodo();
     };
     render() {
         var {todos,actions} = this.props;
