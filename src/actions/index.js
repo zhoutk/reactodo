@@ -5,7 +5,7 @@ import ajax from 'axios';
 // export const addTodo = createAction(types.ADD_TODO);
 export const addTodo = (val) => async (dispatch, getState)=>{
     let value = await ajax.post('http://nzsh.lifeonway.com/rs/users',{name:val.text});
-    if(value.data.code == 200){
+    if(value.data.code === 200){
         dispatch(createAction(types.ADD_TODO)(val));
     }else{
         const error = new TypeError(JSON.stringify(value.data.err));
