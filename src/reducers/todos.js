@@ -7,22 +7,28 @@ let initialState = Map({
     });
 
 export default handleActions({
-    [types.ADD_TODO]: (state, action) => {
-        return state.update('items', value => value.push({key:new Date().getTime(),text:action.payload.text}));
-    },
-    [types.QUERY_TODO]: {
-        next(state,action){
-            let names = [];
-            action.payload.data.rows.forEach((al)=>{
-                names.push({key:al.id,text:al.name});
-            });
-            return state.update('items', value => value.concat(state.get('items').concat(names)));
+        [types.ADD_TODO]: {
+            next(state,action){
+                return state.update('items', value => value.push({key:new Date().getTime(),text:action.payload.text}));
+            },
+            throw(state,action){
+                console.log(`ERROR[${new Date().toLocaleString()}] REDUCER:${types.ADD_TODO}, MESSAGE: ${action.payload.message}`);
+                return state;
+            }
         },
-        throw(state,action){
-            return state;
+        [types.QUERY_TODO]: {
+            next(state,action){
+                let names = [];
+                action.payload.data.rows.forEach((al)=>{
+                    names.push({key:al.id,text:al.name});
+                });
+                return state.update('items', value => value.concat(state.get('items').concat(names)));
+            },
+            throw(state,action){
+                return state;
+            }
         }
-    }
-},
+    },
     initialState
 )
 
