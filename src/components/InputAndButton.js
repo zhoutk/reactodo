@@ -24,7 +24,7 @@ class InputAndButton extends Component {
             <div>
                 <TodoInput innerRef={el=> { this.el = el; }}
                            onKeyUp={this.addItem}
-                           placeholder="enter task" >
+                           placeholder="enter name" >
                 </TodoInput>
                 <TodoButton onClick={this.addItem} type="submit">add</TodoButton>
             </div>
