@@ -12,7 +12,11 @@ export default handleActions({
     },
     [types.QUERY_TODO]: {
         next(state,action){
-            return state.update('items', value => value.push({key:new Date().getTime(),text:action.payload.data.rows[0].name}));
+            var newState = state;
+            action.payload.data.rows.forEach((al)=>{
+                newState = newState.update('items', value => value.push({key:new Date().getTime(),text:al.name}));
+            });
+            return newState;
         },
         throw(state,action){
             return state;
