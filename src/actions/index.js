@@ -1,10 +1,12 @@
 import * as types from '../constants/ActionTypes'
 import {createAction} from 'redux-actions';
 import ajax from 'axios';
+import {getId} from '../utils'
 
 // export const addTodo = createAction(types.ADD_TODO);
 export const addTodo = (val) => async (dispatch, getState)=>{
-    let value = await ajax.post('http://nzsh.lifeonway.com/rs/users',{name:val.text});
+    val.id = getId();
+    let value = await ajax.post('http://nzsh.lifeonway.com/rs/users',{id:val.id, name:val.text});
     if(value.data.code === 200){
         dispatch(createAction(types.ADD_TODO)(val));
     }else{

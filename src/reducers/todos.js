@@ -9,7 +9,7 @@ let initialState = Map({
 export default handleActions({
         [types.ADD_TODO]: {
             next(state,action){
-                return state.update('items', value => value.push({key:new Date().getTime(),text:action.payload.text}));
+                return state.update('items', value => value.push({key:action.payload.id,text:action.payload.text}));
             },
             throw(state,action){
                 console.log(`ERROR[${new Date().toLocaleString()}] REDUCER:${types.ADD_TODO}, MESSAGE: ${action.payload.message}`);
