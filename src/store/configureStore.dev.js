@@ -28,11 +28,24 @@ const store = (function configureStore(initialState) {
     return localStore
 })()
 
+// const rootReducer = combineReducers({
+//     app: appReducer,
+//     routing: routerReducer
+// })
+// const initialState = Immutable.Map();
+//
+// const store = createStore(rootReducer, initialState,
+//     Enable redux dev tools
+    // window.devToolsExtension && window.devToolsExtension()
+// );
+
 const createSelectLocationState = () => {
     let prevRoutingState, prevRoutingStateJS;
     return (state) => {
         const routingState = state.get('routing'); // or state.routing
-        if (typeof prevRoutingState === 'undefined' || prevRoutingState !== routingState) {
+        if ((!routingState || !routingState.get('locationBeforeTransitions') ||
+            routingState.get('locationBeforeTransitions').get('action') === 'PUSH') &&
+            (typeof prevRoutingState === 'undefined' || prevRoutingState !== routingState)) {
             prevRoutingState = routingState;
             prevRoutingStateJS = routingState.toJS();
         }
