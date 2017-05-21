@@ -10,7 +10,7 @@ const LiList = (props)=>{
     return (
         <TodoUl>
             {props.items.map((item)=>{
-                return <Li {...item}></Li>;
+                return <Li {...item} onDel={props.onDel}></Li>;
             })}
         </TodoUl>
     );

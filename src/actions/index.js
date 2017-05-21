@@ -20,3 +20,13 @@ export const queryTodo = (val) => async (dispatch, getState)=>{
     let value = await ajax.get('http://nzsh.lifeonway.com/rs/users');
     dispatch(createAction(types.QUERY_TODO)(value));
 };
+
+export const delTodo = (val) => async (dispatch, getState)=>{
+    let value = await ajax.delete('http://nzsh.lifeonway.com/rs/users/' + val.id);
+    if(value.data.code === 200){
+        dispatch(createAction(types.DEL_TODO)(val));
+    }else{
+        const error = new TypeError(JSON.stringify(value.data.err));
+        dispatch(createAction(types.DEL_TODO)(error));
+    }
+};

@@ -18,7 +18,7 @@ class App extends Component {
         return (
             <div>
                 <InputAndButton ref={comp => { this.InputComponent = comp; }} onSave={actions.addTodo}/>
-                <LiList items={todos}/>
+                <LiList items={todos} onDel={actions.delTodo}/>
             </div>
         );
     };

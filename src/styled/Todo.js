@@ -24,11 +24,26 @@ const TodoButton = styled.button`
     }
 `;
 
+const TodoClose = styled.button`
+    padding: 0px;
+    font-size: 8px;
+    margin: 0px;
+    background-color: #006600;
+    color: #FFF;
+    border: 2px solid #006600;
+    
+    &:hover {
+        background-color: #003300;
+        border: 2px solid #003300;
+        cursor: pointer;
+    }
+`;
+
 const TodoLi = styled.li`
     color: #333;
     background-color: rgba(255,255,255,.5);
-    padding: 15px;
-    margin-bottom: 15px;
+    padding: 5px;
+    margin-bottom: 5px;
     border-radius: 5px;
 `;
 
@@ -38,4 +53,4 @@ const TodoUl = styled.ul`
     width: 255px;
 `;
 
-export {TodoInput, TodoButton, TodoLi, TodoUl};
+export {TodoInput, TodoButton, TodoLi, TodoUl, TodoClose};

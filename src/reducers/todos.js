@@ -9,7 +9,11 @@ let initialState = Map({
 export default handleActions({
         [types.ADD_TODO]: {
             next(state,action){
-                return state.update('items', value => value.push({key:action.payload.id,text:action.payload.text}));
+                return state.update('items', value => value.push({
+                    key: action.payload.id,
+                    id: action.payload.id,
+                    text: action.payload.text
+                }));
             },
             throw(state,action){
                 console.log(`ERROR[${new Date().toLocaleString()}] REDUCER:${types.ADD_TODO}, MESSAGE: ${action.payload.message}`);
@@ -20,11 +24,23 @@ export default handleActions({
             next(state,action){
                 let names = [];
                 action.payload.data.rows.forEach((al)=>{
-                    names.push({key:al.id,text:al.name});
+                    names.push({key:al.id,id:al.id,text:al.name});
                 });
                 return state.update('items', value => value.concat(state.get('items').concat(names)));
             },
             throw(state,action){
+                return state;
+            }
+        },
+        [types.DEL_TODO]: {
+            next(state,action){
+                let index = state.get('items').findIndex(function(item) {
+                    return item.id === action.payload.id;
+                });
+                return state.update('items', value => value.delete(index));
+            },
+            throw(state,action){
+                console.log(`ERROR[${new Date().toLocaleString()}] REDUCER:${types.ADD_TODO}, MESSAGE: ${action.payload.message}`);
                 return state;
             }
         }
