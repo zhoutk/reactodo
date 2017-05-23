@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import {TodoButton, TodoInput} from '../styled/Todo';
+import {Button, Input} from "antd";
 
 class InputAndButton extends Component {
     focus = () => {
@@ -11,8 +11,8 @@ class InputAndButton extends Component {
     };
     addItem = e => {
         if(e.which === 13 || e.type === 'click'){
-            if(e.target.value.trim().length > 0 || this.el.value.trim().length > 0) {
-                this.props.onSave({text: e.target.value.trim() || this.el.value.trim()});
+            if(e.target.value || this.el.value) {
+                this.props.onSave({text: e.target.value || this.el.value});
                 e.target.value = '';
                 this.el.value = '';
             }
@@ -22,11 +22,8 @@ class InputAndButton extends Component {
     render = () => {
         return (
             <div>
-                <TodoInput innerRef={el=> { this.el = el; }}
-                           onKeyUp={this.addItem}
-                           placeholder="enter name" >
-                </TodoInput>
-                <TodoButton onClick={this.addItem} type="submit">add</TodoButton>
+                <Input ref={el=> { this.el = el; }} size="large" placeholder="enter name" />
+                <Button onClick={this.addItem} type="primary">Add</Button>
             </div>
         );
     }

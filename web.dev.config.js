@@ -23,7 +23,7 @@ module.exports = {
         test: /\.json$/,
         loader: "json",
       },{
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
@@ -35,11 +35,27 @@ module.exports = {
               // this is important for Webpack HMR:
               locals: ['module']
             }],
-          }]],
+          }],["import", { libraryName: "antd", style: "css" }]
+          ],
+          cacheDirectory: true
         },
       },
+        {
+            test: /\.css$/,
+            loader: 'css?sourceMap&modules&localIdentName=[local]___[hash:base64:5]!!',
+            exclude: /node_modules/
+        },
+        {
+            test: /\.css$/,
+            loader: 'style!css'
+        },
+
     ],
   },
+    resolve: {
+        modulesDirectories: ['node_modules', path.join(__dirname, '../node_modules')],
+        extensions: ['', '.web.js', '.js', '.json'],
+    },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
