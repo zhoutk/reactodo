@@ -3,27 +3,36 @@
  */
 
 import React, { Component } from 'react';
-import {Button, Input} from "antd";
+import {Button, Input,Row,Col} from "antd";
 
 class InputAndButton extends Component {
+
     focus = () => {
         this.el.focus();
     };
+
     addItem = e => {
+        console.log(this.el.refs.input.value)
         if(e.which === 13 || e.type === 'click'){
-            if(e.target.value || this.el.value) {
-                this.props.onSave({text: e.target.value || this.el.value});
-                e.target.value = '';
-                this.el.value = '';
+            if(this.el.refs.input.value) {
+                this.props.onSave({text: this.el.refs.input.value});
+                this.el.refs.input.value = '';
             }
-            this.focus();
+            this.el.focus();
         }
-    };
+    }
+
     render = () => {
         return (
             <div>
-                <Input ref={el=> { this.el = el; }} size="large" placeholder="enter name" />
-                <Button onClick={this.addItem} type="primary">Add</Button>
+                <Row>
+                    <Col span={4}>
+                        <Input  ref={(el)=>this.el = el} size="large" placeholder="enter name"  onPressEnter={this.addItem.bind(this)}  />
+                    </Col>
+                    <Col span={4}>
+                        <Button onClick={this.addItem.bind(this)} type="primary">Add</Button>
+                    </Col>
+                </Row>
             </div>
         );
     }
