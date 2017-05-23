@@ -27,7 +27,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['es2015',"stage-0", 'react'],
+          presets: ['es2015',"stage-2", 'react'],
           plugins: [['react-transform', {
             transforms: [{
               transform: 'react-transform-hmr',
@@ -59,8 +59,8 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development'),
-        PLATFORM_ENV: JSON.stringify('web'),
+        NODE_ENV: JSON.stringify('__DEV__'),
+        PLATFORM_ENV: JSON.stringify('__WEB__'),
       },
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
