@@ -24,14 +24,8 @@ module.exports = {
   module: {
     loaders: [
       // take all less files, compile them, and bundle them in with our js bundle
-      {
-        test: /\.less$/,
-        loader: 'style!css!autoprefixer?browsers=last 2 version!less'
-      },
+
         {
-        test: /\.json$/,
-        loader: "json",
-      },{
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
@@ -48,13 +42,14 @@ module.exports = {
           ],
         },
       },
+
         { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
 
         // 只对src目录里的less文件应用CSS Module,自动添加hash后缀
         { test: /\.less$/, include: [path.resolve(__dirname, 'src')], loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&localIdentName=[local]-[hash:base64:5]', 'less-loader') },
 
         { test: /\.less$/,exclude: [path.resolve(__dirname, 'src')],loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!' + 'autoprefixer-loader!' +`less`)},
-
+        { test: /\.(png|jpg)$/, loader: 'url?limit=8192' },
         // {
         //     test: /\.less$/,
         //     loader: ExtractTextPlugin.extract(
@@ -84,6 +79,6 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-      new ExtractTextPlugin("[name].css"),
+      new ExtractTextPlugin("style.css"),
 ],
 };
