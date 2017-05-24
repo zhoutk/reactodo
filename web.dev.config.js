@@ -2,11 +2,12 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const pkgPath = require('./package.json');
-let theme = {};
+let theme = {'primary-color': '#2e04fe'};
+var autoprefixer = require('autoprefixer')
 
-if (pkgPath.theme && typeof(pkgPath.theme) === 'object') {
-    theme = pkgPath.theme;
-}
+// if (pkgPath.theme && typeof(pkgPath.theme) === 'object') {
+//     theme = pkgPath.theme;
+// }
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -43,34 +44,34 @@ module.exports = {
               // this is important for Webpack HMR:
               locals: ['module']
             }],
-          }], ["transform-runtime"],["import", { libraryName: "antd", style: true }]
+          }], ["import", { libraryName: "antd", style: true }]
           ],
-          cacheDirectory: true
         },
       },
-        {
-            test: /\.css$/,
-            loader: 'css?sourceMap&modules&localIdentName=[local]___[hash:base64:5]!!',
-            exclude: /node_modules/
-        },
-        {
-            test: /\.css$/,
-            loader: 'style!css'
-        },
-        {
-            test: /\.module\.less$/,
-            loader: ExtractTextPlugin.extract(
-                'css?sourceMap&modules&localIdentName=[local]___[hash:base64:5]!!' +
-                'postcss!' +
-                `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
-            ),
-        },
+        { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
 
+        // 只对src目录里的less文件应用CSS Module,自动添加hash后缀
+        { test: /\.less$/, include: [path.resolve(__dirname, 'src')], loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&localIdentName=[local]-[hash:base64:5]', 'less-loader') },
+
+        { test: /\.less$/,exclude: [path.resolve(__dirname, 'src')],loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!' + 'autoprefixer-loader!' +`less`)},
+
+        // {
+        //     test: /\.less$/,
+        //     loader: ExtractTextPlugin.extract(
+        //         'css-loader?importLoaders=2&sourceMap&modules&localIdentName=[local]___[hash:base64:5]!!' +
+        //         'postcss!' +
+        //         `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+        //     ),
+        // },
     ],
   },
     resolve: {
-        modulesDirectories: ['node_modules', path.join(__dirname, '../node_modules')],
-        extensions: ['', '.web.js', '.js', '.json','.css','.less'],
+        modulesDirectories: ['node_modules', path.join(__dirname, './node_modules')],
+        extensions: ['', '.js', '.jsx']
+    },
+
+    resolveLoader:{
+        modulesDirectories: ['node_modules', path.join(__dirname, './node_modules')],
     },
   plugins: [
     new webpack.DefinePlugin({
@@ -83,5 +84,6 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-  ],
+      new ExtractTextPlugin("[name].css"),
+],
 };

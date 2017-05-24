@@ -1,19 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Header from '../components/header'
+import InputAndButton from '../components/InputAndButton';
+import LiList from '../components/LiList';
 import * as TodoActions from '../actions';
 
-class App extends Component {
-
+class App_bak extends Component {
+    // static propTypes = {
+    //     todos: PropTypes.array.isRequired,
+    //     actions: PropTypes.object.isRequired
+    // };
+    componentDidMount (){
+        this.InputComponent.focus();
+    };
     render() {
         var {todos,actions} = this.props;
         return (
             <div>
-                <div className="ant-layout">
-                    <Header/>
-                    {this.props.children}
-                </div>
+                <InputAndButton ref={comp => { this.InputComponent = comp; }} onSave={actions.addTodo}/>
+                <LiList items={todos} onDel={actions.delTodo}/>
             </div>
         );
     };

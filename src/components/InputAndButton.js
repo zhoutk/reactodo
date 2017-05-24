@@ -4,6 +4,7 @@
 
 import React, { Component } from 'react';
 import {Button, Input,Row,Col} from "antd";
+import  './InputAndButton.less'
 
 class InputAndButton extends Component {
 
@@ -24,7 +25,7 @@ class InputAndButton extends Component {
 
     render = () => {
         return (
-            <div>
+            <div className="InputAndButton">
                 <Input  ref={(el)=>this.el = el} size="large" placeholder="enter name"  onPressEnter={this.addItem.bind(this)}  />
                 <Button onClick={this.addItem.bind(this)} type="primary">Add</Button>
             </div>
