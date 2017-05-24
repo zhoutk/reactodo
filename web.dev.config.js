@@ -1,5 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const pkgPath = require('./package.json');
+let theme = {};
+
+if (pkgPath.theme && typeof(pkgPath.theme) === 'object') {
+    theme = pkgPath.theme;
+}
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -16,10 +23,11 @@ module.exports = {
   module: {
     loaders: [
       // take all less files, compile them, and bundle them in with our js bundle
-      { 
-        test: /\.less$/, 
-        loader: 'style!css!autoprefixer?browsers=last 2 version!less' 
-      },{
+      {
+        test: /\.less$/,
+        loader: 'style!css!autoprefixer?browsers=last 2 version!less'
+      },
+        {
         test: /\.json$/,
         loader: "json",
       },{
@@ -35,7 +43,7 @@ module.exports = {
               // this is important for Webpack HMR:
               locals: ['module']
             }],
-          }],["import", { libraryName: "antd", style: "css" }]
+          }], ["transform-runtime"],["import", { libraryName: "antd", style: true }]
           ],
           cacheDirectory: true
         },
@@ -49,12 +57,20 @@ module.exports = {
             test: /\.css$/,
             loader: 'style!css'
         },
+        {
+            test: /\.module\.less$/,
+            loader: ExtractTextPlugin.extract(
+                'css?sourceMap&modules&localIdentName=[local]___[hash:base64:5]!!' +
+                'postcss!' +
+                `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+            ),
+        },
 
     ],
   },
     resolve: {
         modulesDirectories: ['node_modules', path.join(__dirname, '../node_modules')],
-        extensions: ['', '.web.js', '.js', '.json'],
+        extensions: ['', '.web.js', '.js', '.json','.css','.less'],
     },
   plugins: [
     new webpack.DefinePlugin({
@@ -63,6 +79,7 @@ module.exports = {
         PLATFORM_ENV: JSON.stringify('__WEB__'),
       },
     }),
+
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),

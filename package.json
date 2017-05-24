@@ -6,6 +6,7 @@
     "antd": "^2.10.2",
     "axios": "^0.16.1",
     "babel-polyfill": "^6.23.0",
+    "extract-text-webpack-plugin": "^2.1.0",
     "immutable": "^3.8.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -32,11 +33,12 @@
     "babel-preset-react-native": "1.9.2",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^2.1.0",
     "gulp": "^3.9.0",
     "jest": "20.0.3",
     "json-loader": "^0.5.4",
-    "less": "^2.5.3",
-    "less-loader": "^2.2.2",
+    "less": "^2.7.2",
+    "less-loader": "^2.2.3",
     "react-native-cli": "^0.1.10",
     "react-test-renderer": "~15.4.1",
     "react-transform-catch-errors": "^1.0.1",
@@ -56,5 +58,6 @@
   "scripts": {
     "build": "webpack --config web.prod.config.js --progress --colors",
     "start": "webpack-dev-server --content-base public/ --config web.dev.config.js --port 3000 --inline --hot --colors"
-  }
+  },
+  "theme": "./theme.js"
 }

@@ -25,14 +25,8 @@ class InputAndButton extends Component {
     render = () => {
         return (
             <div>
-                <Row>
-                    <Col span={4}>
-                        <Input  ref={(el)=>this.el = el} size="large" placeholder="enter name"  onPressEnter={this.addItem.bind(this)}  />
-                    </Col>
-                    <Col span={4}>
-                        <Button onClick={this.addItem.bind(this)} type="primary">Add</Button>
-                    </Col>
-                </Row>
+                <Input  ref={(el)=>this.el = el} size="large" placeholder="enter name"  onPressEnter={this.addItem.bind(this)}  />
+                <Button onClick={this.addItem.bind(this)} type="primary">Add</Button>
             </div>
         );
     }
