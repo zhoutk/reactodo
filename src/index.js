@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import {store, history} from './store';
 import { Router, Route, IndexRoute } from 'react-router';
 import App from './containers/App';
-import Login from './components/login/Login';
+import Login from './containers/Login';
 // 引入垫片兼容IE
 require('es5-shim');
 require('es5-shim/es5-sham');
@@ -19,6 +19,7 @@ render(
 
                 <IndexRoute component={Login}/>
                 <Route path="login" component={Login} />
+                <Route path="/app" component={Login} />
 
 
             </Route>

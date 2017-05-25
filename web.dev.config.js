@@ -34,8 +34,6 @@ module.exports = {
 
         { test: /\.less$/,exclude: [path.resolve(__dirname, 'src')],loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!' + 'autoprefixer-loader?browsers=last 2 version!' +`less`)},
 
-
-
         {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
@@ -82,7 +80,9 @@ module.exports = {
         modulesDirectories: ['node_modules', path.join(__dirname, './node_modules')],
     },
   plugins: [
-      new ExtractTextPlugin("style.css"),
+      new ExtractTextPlugin("style.css"), //打包css
+
+      //直接复制静态资源
       new CopyWebpackPlugin([
           {
               context: './src/assets/images',
@@ -110,6 +110,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
 
+      //打包的css，js放到index.html中
       new HtmlWebpackPlugin({
               filename: './index.html', //生成的html存放路径，相对于 path
               template: './src/index.html', //html模板路径
@@ -117,7 +118,7 @@ module.exports = {
               hash: true, //为静态资源生成hash值
               minify: { //压缩HTML文件
                   removeComments: true, //移除HTML中的注释
-                  collapseWhitespace: true  //删除空白符与换行符
+                  collapseWhitespace: false  //删除空白符与换行符
               }
           }
       ),

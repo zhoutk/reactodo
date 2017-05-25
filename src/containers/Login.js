@@ -1,27 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Header from '../components/header'
+import  LoginDumb from '../components/login/LoginDumb'
 import * as TodoActions from '../actions';
+import { message } from 'antd';
 
-class App extends Component {
+class Login extends Component {
+
+
+
+    handleSubmitForm(e){
+        message.error('*********************');
+    }
 
     render() {
         var {todos,actions} = this.props;
         return (
             <div>
-                <div className="ant-layout">
-                    {this.props.children}
-                </div>
+                <LoginDumb onSubmitForm={this.handleSubmitForm.bind(this)}></LoginDumb>
             </div>
         );
     };
 }
-
-App.propTypes = {
-    todos: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
-};
 
 const mapStateToProps = state => ({
     todos: state.get('todos').get('items')
@@ -34,4 +34,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(App)
+)(Login)
