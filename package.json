@@ -7,8 +7,10 @@
     "axios": "^0.16.1",
     "babel-polyfill": "^6.23.0",
     "console-polyfill": "^0.2.3",
+    "copy-webpack-plugin": "^4.0.1",
     "es5-shim": "^4.5.9",
     "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.28.0",
     "immutable": "^3.8.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -61,7 +63,7 @@
     "webpack-hot-middleware": "^2.6.4"
   },
   "scripts": {
-    "build": "webpack --config web.prod.config.js --progress --colors",
+    "build": "webpack --config web.dev.config.js --progress --colors",
     "start": "webpack-dev-server --content-base public/ --config web.dev.config.js --port 3000 --inline --hot --colors"
   },
   "theme": "./theme.js"

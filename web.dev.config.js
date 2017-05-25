@@ -1,6 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin'); //抽取html
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 const pkgPath = require('./package.json');
 let theme = {'primary-color': '#2e04fe'};
 var autoprefixer = require('autoprefixer')
@@ -18,12 +21,20 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, 'public'),
-    filename: 'bundle.js',
+    filename:'bundle.js',
     publicPath: '/',
   },
   module: {
     loaders: [
       // take all less files, compile them, and bundle them in with our js bundle
+        { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
+
+        // 只对src目录里的less文件应用CSS Module,自动添加hash后缀
+        { test: /\.less$/, include: [path.resolve(__dirname, 'src')], loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap&modules&localIdentName=[local]-[hash:base64:5]!autoprefixer?browsers=last 2 version!less-loader') },
+
+        { test: /\.less$/,exclude: [path.resolve(__dirname, 'src')],loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!' + 'autoprefixer-loader?browsers=last 2 version!' +`less`)},
+
+
 
         {
         test: /\.(js|jsx)$/,
@@ -43,13 +54,15 @@ module.exports = {
         },
       },
 
-        { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
+        // {
+        //     test: /\.less$/,
+        //     exclude: [path.resolve(__dirname, 'src')],
+        //     loader: 'style!css!autoprefixer?browsers=last 2 version!less'
+        // },
 
-        // 只对src目录里的less文件应用CSS Module,自动添加hash后缀
-        { test: /\.less$/, include: [path.resolve(__dirname, 'src')], loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&localIdentName=[local]-[hash:base64:5]', 'less-loader') },
 
-        { test: /\.less$/,exclude: [path.resolve(__dirname, 'src')],loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!' + 'autoprefixer-loader!' +`less`)},
         { test: /\.(png|jpg)$/, loader: 'url?limit=8192' },
+        { test: /\.(woff|woff2|eot|ttf|svg)(\?.*$|$)/, loader: 'url' }
         // {
         //     test: /\.less$/,
         //     loader: ExtractTextPlugin.extract(
@@ -69,6 +82,23 @@ module.exports = {
         modulesDirectories: ['node_modules', path.join(__dirname, './node_modules')],
     },
   plugins: [
+      new ExtractTextPlugin("style.css"),
+      new CopyWebpackPlugin([
+          {
+              context: './src/assets/images',
+              from: '**/*',
+              to: './assets/images'},
+          {
+              context: './src/assets/iconFont',
+              from: '**/*',
+              to: './assets/iconFont'
+          },
+          {
+              context: './src/assets/data',
+              from: '**/*',
+              to: './assets/data'
+          }
+      ]),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('__DEV__'),
@@ -79,6 +109,17 @@ module.exports = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-      new ExtractTextPlugin("style.css"),
+
+      new HtmlWebpackPlugin({
+              filename: './index.html', //生成的html存放路径，相对于 path
+              template: './src/index.html', //html模板路径
+              inject: true, //允许插件修改哪些内容，包括head与body
+              hash: true, //为静态资源生成hash值
+              minify: { //压缩HTML文件
+                  removeComments: true, //移除HTML中的注释
+                  collapseWhitespace: true  //删除空白符与换行符
+              }
+          }
+      ),
 ],
 };
