@@ -24,11 +24,11 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-    todos: state.get('todos').get('items')
+
 })
 
 const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(TodoActions, dispatch)
+    onSubmitForm: bindActionCreators(TodoActions, dispatch)
 })
 
 export default connect(
